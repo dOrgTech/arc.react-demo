@@ -1,26 +1,68 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Plugin, DAO, DAOData, ArcConfig, Arc, Plugins, PluginData, networkSettings, DAOs } from "@dorgtech/daocomponents";
-import { connectWallet } from "./utils/ethers";
+import {
+  SchemeRegistrar,
+  ContributionReward,
+  ContributionRewardExt,
+  JoinAndQuit,
+  Competition,
+  FundingRequest
+} from "./utils/mocks";
+import { IProposalBaseCreateOptions } from "./utils/types";
 
 function App() {
-  const c = new ArcConfig("private")
-  let connectionParams = networkSettings["private"]
-  const web3Provider = (window as any).ethereum.currentProvider || (window as any).web3.currentProvider
-  connectionParams = { ...connectionParams, web3Provider }
-  const newConnection = new ArcConfig(connectionParams)
+  // const c = new ArcConfig("private");
+  let connectionParams = networkSettings["private"];
+  const web3Provider = (window as any).ethereum.currentProvider || (window as any).web3.currentProvider;
+  connectionParams = { ...connectionParams, web3Provider };
+  const newConnection = new ArcConfig(connectionParams);
   const [provider, setProvider] = useState<any>(newConnection);
 
   const connectWallet = () => {
-    // console.log(c)
-    // console.log(connectionParams)
-    // console.log(newConnection)
-    // setProvider(newConnection)
+    setProvider(newConnection);
   };
 
-  
+  const triggerProposal = async (plugin: any, values: IProposalBaseCreateOptions) => {
+    const proposal = await plugin.createProposal(values).send();
+    console.log(proposal);
+  };
+
+  const createProposal = async (pluginEntity: any, dao: string) => {
+    let mockedValues: IProposalBaseCreateOptions | undefined = undefined;
+    try {
+      const { address } = pluginEntity.coreState;
+      switch (pluginEntity.coreState.name) {
+        case "SchemeRegistrar":
+          mockedValues = SchemeRegistrar(dao, address);
+          break;
+        case "Competition":
+          mockedValues = Competition(dao, address);
+          break;
+        case "JoinAndQuit":
+          mockedValues = JoinAndQuit(dao, address);
+        case "ContributionReward":
+          mockedValues = ContributionReward(dao, address);
+          break;
+        case "ContributionRewardExt":
+          mockedValues = ContributionRewardExt(dao, address);
+          break;
+        case "FundingRequest":
+          mockedValues = FundingRequest(dao, address);
+          break;
+        default:
+          console.log("Plugin not implemented");
+      }
+      if (mockedValues) {
+        triggerProposal(pluginEntity, mockedValues);
+      }
+    } catch (e) {
+      console.log("Error creating proposal");
+      console.log(e.message);
+    }
+  };
 
   const DAOPlugins = () => (
-    <DAO address={"0xde949f934a0f8eae610f4b0a0c4f64211b62dfe1"}>
+    <DAO address={"0x68728fe67fb1fbae9076110f98e9ba3f5a00f936"}>
       <DAO.Data>{(dao: DAOData) => <div>{"DAO name: " + dao.name}</div>}</DAO.Data>
       <Plugins from={"DAO"}>
         <Plugin.Data>
@@ -28,33 +70,12 @@ function App() {
             <>
               <div>{pluginData.name}</div>
               <div>{pluginData.address}</div>
-              {pluginData.name === "SchemeRegistrar" && (
-                <Plugin.Entity>
-                  {(pluginEntity: any) => (
-                    <button
-                      onClick={async () => {
-                        try {
-                          const p = await pluginEntity.createProposal({
-                            dao: "0xde949f934a0f8eae610f4b0a0c4f64211b62dfe1",
-                            description: 'Proposal from DAOComponents :-)',
-                            parametersHash: '0x0000000000000000000000000000000000000000000000000000000000001234',
-                            permissions: '0x0000001f',
-                            plugin: pluginEntity.coreState.address,
-                            pluginToRegister: "0xde949f934a0f8eae610f4b0a0c4f64211b62dfe1",
-                            proposalType: "SchemeRegistrarAdd",
-                            tags: [ "FIRST" ]
-                          }).send()
-                          console.log(p)
-                        } catch (e) {
-                          console.log(e);
-                        }
-                      }}
-                    >
-                      Create proposal
-                    </button>
-                  )}
-                </Plugin.Entity>
-              )}
+              <div>{pluginData.id}</div>
+              <Plugin.Entity>
+                {(pluginEntity: any) => (
+                  <button onClick={e => createProposal(pluginEntity, pluginData.dao.id)}>Create proposal</button>
+                )}
+              </Plugin.Entity>
             </>
           )}
         </Plugin.Data>
