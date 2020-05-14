@@ -11,7 +11,7 @@ import {
 export const SchemeRegistrar = (dao: string, plugin: string) => {
   const values: IProposalCreateOptionsSR = {
     dao,
-    description: "Proposal from DAOComponents :-)",
+    descriptionHash: '',
     parametersHash:
       "0x0000000000000000000000000000000000000000000000000000000000001234",
     permissions: "0x0000001f",
