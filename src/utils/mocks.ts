@@ -1,3 +1,4 @@
+import BN from "bn.js"
 import {
   IProposalCreateOptionsCR,
   IProposalCreateOptionsCRExt,
@@ -53,13 +54,12 @@ export const ContributionRewardExt = (dao: string, plugin: string) => {
 };
 
 export const JoinAndQuit = (dao: string, plugin: string) => {
+  console.log('join and quit')
   const values: IProposalCreateOptionsJoinAndQuit = {
-    descriptionHash: "0x10",
-    fee: "10000",
+    descriptionHash: "hola",
+    fee: '1000',
     dao,
-    description: "Join and Quit from DAOComponents",
-    title: "Yes",
-    plugin,
+    plugin
   };
   return values;
 };
@@ -71,16 +71,18 @@ export const Competition = (dao: string, plugin: string) => {
   const endTime = new Date(time.getSeconds() + 200);
   const values: IProposalCreateOptionsComp = {
     dao,
+    endTime,
+    ethReward: "10000",
     externalTokenAddress: undefined,
+    externalTokenReward: '0',
     numberOfVotesPerVoter: 3,
     proposerIsAdmin: true,
-    ethReward: "10000",
     startTime,
     suggestionsEndTime,
     votingStartTime: startTime,
-    endTime,
     rewardSplit: [50, 50],
     plugin,
+    reputationReward: '10'
   };
   return values;
 };
@@ -88,12 +90,20 @@ export const Competition = (dao: string, plugin: string) => {
 export const FundingRequest = (dao: string, plugin: string) => {
   const values: IProposalCreateOptionsFundingRequest = {
     beneficiary: "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
-    amount: "100000",
+    amount: '1000',
     descriptionHash: "0x10",
     dao,
-    description: "Join and Quit from DAOComponents",
-    title: "Yes",
     plugin,
   };
   return values;
 };
+
+export const GenericPlugin = (dao: string, plugin: string) => {
+  const values : IProposalCreateOptionsGS = {
+    dao,
+    plugin,
+    value: 0,
+    callData: "0x"
+  }
+  return values
+}
