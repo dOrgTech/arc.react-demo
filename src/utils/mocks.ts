@@ -117,7 +117,7 @@ const triggerProposal = async (plugin: any, values: IProposalBaseCreateOptions) 
   await plugin.createProposal(values).send();
 };
 
-export const createProposal = async (pluginEntity: PluginEntity, dao: any) => {
+export const createProposal = async (pluginEntity: any, dao: any) => {
   let mockedValues: IProposalBaseCreateOptions | undefined = undefined;
   try {
     const { address } = pluginEntity.coreState!;

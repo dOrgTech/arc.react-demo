@@ -4,7 +4,7 @@ import { Grid } from "@material-ui/core";
 import { createProposal } from "../utils/mocks";
 
 interface IProposalProps {
-  pluginType: "ReputationFromToken" | "Unknown" | "FundingRequest" | "JoinAndQuit" | "GenericScheme" | "SchemeRegistrar" | "ContributionReward" | "ContributionRewardExt" | "Competition" | "SchemeFactory" | "SchemeRegistrarAdd" | "SchemeRegistrarRemove"
+  pluginType: string
 }
 
 export const ProposalPlugins = (props: IProposalProps) => {

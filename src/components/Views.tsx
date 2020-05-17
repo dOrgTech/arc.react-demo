@@ -43,7 +43,14 @@ export function Views() {
   return (
     <>
       <DAO address={"0x1e405028793fbb373947fd99852e5bb852812a2d"}>
-        <DAO.Data>{(dao: DAOData) => <div>{"DAO name: " + dao.name}</div>}</DAO.Data>
+        <DAO.Data>
+          {(dao: DAOData) => (
+            <>
+              <div>{"DAO name: " + dao.name}</div>
+              <div>{"DAO rep total: " + dao.reputationTotalSupply}</div>
+            </>
+          )}
+        </DAO.Data>
         <Tab />
         <CurrentSection />
       </DAO>
