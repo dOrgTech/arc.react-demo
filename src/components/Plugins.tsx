@@ -1,70 +1,50 @@
-import React from "react";
-import { Plugin, Plugins, PluginData, PluginEntity, ProposalEntity } from "@daostack/arc.react";
-import {
-  SchemeRegistrar,
-  ContributionReward,
-  ContributionRewardExt,
-  JoinAndQuit,
-  Competition,
-  FundingRequest,
-  GenericPlugin
-} from "../utils/mocks";
-import { IProposalBaseCreateOptions } from "../utils/types";
+import React, { useState } from "react";
+import { Plugin, PluginEntity, Plugins, PluginData, Proposals, Proposal, ProposalData } from "@daostack/arc.react";
+import { Grid } from "@material-ui/core";
+import { createProposal } from "../utils/mocks";
 
-export const DAOPlugins = () => (
-  <Plugins from={"DAO"}>
-    <Plugin.Data>
-      {(pluginData: PluginData) => (
-        <>
-          <div>{pluginData.name}</div>
-          <Plugin.Entity>
-            {(pluginEntity: PluginEntity) => (
-              <button onClick={e => createProposal(pluginEntity, pluginData.dao)}>Create proposal</button>
-            )}
-          </Plugin.Entity>
-        </>
-      )}
-    </Plugin.Data>
-  </Plugins>
-);
+interface IProposalProps {
+  pluginType: "ReputationFromToken" | "Unknown" | "FundingRequest" | "JoinAndQuit" | "GenericScheme" | "SchemeRegistrar" | "ContributionReward" | "ContributionRewardExt" | "Competition" | "SchemeFactory" | "SchemeRegistrarAdd" | "SchemeRegistrarRemove"
+}
 
-const triggerProposal = async (plugin: any, values: IProposalBaseCreateOptions) => {
-  await plugin.createProposal(values).send();
+export const ProposalPlugins = (props: IProposalProps) => {
+  const { pluginType } = props;
+  return (
+    <>
+      <Proposals from="Plugin">
+        <Proposal.Data>
+          {(proposalData: ProposalData) => 
+            (proposalData.plugin.entity.coreState?.name === pluginType && 
+              <div> { proposalData.id}</div>
+            )
+          }
+        </Proposal.Data>
+      </Proposals>
+    </>
+  );
 };
 
-const createProposal = async (pluginEntity: PluginEntity, dao: any) => {
-  let mockedValues: IProposalBaseCreateOptions | undefined = undefined;
-  try {
-    const { address } = pluginEntity.coreState!
-    switch (pluginEntity.coreState?.name) {
-      case "SchemeRegistrar":
-        mockedValues = SchemeRegistrar(dao, address);
-        break;
-      case "Competition":
-        mockedValues = Competition(dao, address);
-        break;
-      case "JoinAndQuit":
-        mockedValues = JoinAndQuit(dao, address);
-      case "ContributionReward":
-        mockedValues = ContributionReward(dao, address);
-        break;
-      case "ContributionRewardExt":
-        mockedValues = ContributionRewardExt(dao, address);
-        break;
-      case "FundingRequest":
-        mockedValues = FundingRequest(dao, address);
-        break;
-      case "GenericScheme":
-        mockedValues = GenericPlugin(dao, address);
-        break;
-      default:
-        console.log("Plugin not implemented");
-    }
-    if (mockedValues) {
-      triggerProposal(pluginEntity, mockedValues);
-    }
-  } catch (e) {
-    console.log("Error creating proposal");
-    console.log(e.message);
-  }
+export const DAOPlugins = () => {
+  const [pluginSelected, setPluginSelected] = useState<string | null>(null);
+
+  return (
+    <Plugins from={"DAO"}>
+      <Plugin.Data>
+        {(pluginData: PluginData) => (
+          <>
+            <div>{pluginData.name}</div>
+            <Plugin.Entity>
+              {(pluginEntity: PluginEntity) => (
+                <Grid>
+                  <button onClick={e => createProposal(pluginEntity, pluginData.dao)}>Create proposal</button>
+                  <button onClick={() => setPluginSelected(pluginData.name)}>See proposals</button>
+                </Grid>
+              )}
+            </Plugin.Entity>
+            {pluginSelected === pluginData.name && <ProposalPlugins pluginType={pluginSelected} />}
+          </>
+        )}
+      </Plugin.Data>
+    </Plugins>
+  );
 };
