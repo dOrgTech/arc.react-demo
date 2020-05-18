@@ -1,10 +1,10 @@
 import React from "react";
-import { Members, Member, MemberData } from "@daostack/arc.react";
+import { Members, Member, MemberData, DAOData } from "@daostack/arc.react";
 import { List, ListItem, ListItemAvatar, Avatar, ListItemText, Divider } from "@material-ui/core";
 import PersonIcon from "@material-ui/icons/Person";
 
 interface IProps {
-  dao?: any
+  dao?: DAOData
 }
 
 export function DAOMembers(props: IProps) {

@@ -1,3 +1,5 @@
+import BN from 'bn.js'
+export { BN }
 export interface IProposalBaseCreateOptions {
     dao: string;
     description?: string;
@@ -46,7 +48,7 @@ export interface IProposalCreateOptionsCRExt extends IProposalBaseCreateOptions 
 
 export interface IProposalCreateOptionsFundingRequest extends IProposalBaseCreateOptions {
   beneficiary: string;
-  amount: string;
+  amount: BN;
   descriptionHash: string;
 }
 
@@ -57,11 +59,11 @@ export interface IProposalCreateOptionsGS extends IProposalBaseCreateOptions {
 
 export interface IProposalCreateOptionsJoinAndQuit extends IProposalBaseCreateOptions {
   descriptionHash: string;
-  fee: string;
+  fee: BN;
 }
 
 export interface IProposalCreateOptionsSR extends IProposalBaseCreateOptions {
-  proposalType: 'SchemeRegistrarAdd' | 'SchemeRegistrarEdit' | 'SchemeRegistrarRemove';
+  type: 'SchemeRegistrarAdd' | 'SchemeRegistrarEdit' | 'SchemeRegistrarRemove';
   parametersHash?: string;
   permissions?: string;
   pluginToRegister?: string;
