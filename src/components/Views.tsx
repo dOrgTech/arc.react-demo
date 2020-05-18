@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
+import { BottomNavigation, BottomNavigationAction, Typography, Paper } from "@material-ui/core";
 import BuildIcon from "@material-ui/icons/Build";
 import GroupIcon from "@material-ui/icons/Group";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
@@ -13,7 +13,11 @@ import { DAOPlugins, DAOMembers, DAOProposals, Vault } from "./";
 const useStyles = makeStyles({
   root: {
     width: 500
+  },
+  daoInfo: {
+    paddingTop: 10
   }
+
 });
 
 export function Views() {
@@ -43,9 +47,18 @@ export function Views() {
   return (
     <>
       <DAO address={"0x1e405028793fbb373947fd99852e5bb852812a2d"}>
-        <DAO.Data>{(dao: DAOData) => <div>{"DAO name: " + dao.name}</div>}</DAO.Data>
-        <Tab />
-        <CurrentSection />
+        <DAO.Data>
+          {(dao: DAOData) => (
+            <>
+              <Paper variant="outlined" style={{ width: 400, height: 50 }}>
+                <Typography className={classes.daoInfo} align="center" variant="subtitle1">{`${dao.name}'s DAO`}</Typography>
+              </Paper>
+              {/* <div>{"DAO rep total: " + Math.floor(Number(dao.reputationTotalSupply))}</div> */}
+              <Tab />
+              <CurrentSection dao={dao} />
+            </>
+          )}
+        </DAO.Data>
       </DAO>
     </>
   );
