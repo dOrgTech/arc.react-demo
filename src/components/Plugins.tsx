@@ -57,7 +57,7 @@ export const ProposalPlugins = () => {
         <Proposal.Entity>
           {(proposalData: ProposalData, proposalEntity: ProposalEntity) => {
             const { title, description, tags, votesFor, votesAgainst, votes } = proposalData;
-            const alreadyVoted = votes.some(async vote => {
+            const alreadyVoted = votes.some(async (vote: any) => {
               await vote.entity.fetchState();
               return vote.entity.coreState?.voter === web3.address;
             });
