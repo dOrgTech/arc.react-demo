@@ -4,10 +4,9 @@ import { BottomNavigation, BottomNavigationAction, Typography, Paper } from "@ma
 import BuildIcon from "@material-ui/icons/Build";
 import GroupIcon from "@material-ui/icons/Group";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
-import HistoryIcon from "@material-ui/icons/History";
-import { DAO, DAOData, DAOEntity } from "@daostack/arc.react";
+import { DAO, DAOData } from "@daostack/arc.react";
 
-import { DAOPlugins, DAOMembers, DAOProposals, Vault } from "./";
+import { DAOMembers, DAOProposals, Vault } from "./";
 // import { BN } from "../utils/types";
 
 const useStyles = makeStyles({

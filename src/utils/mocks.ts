@@ -11,9 +11,6 @@ import {
   IProposalBaseCreateOptions
 } from "./types";
 
-export const LATEST_ARC_VERSION = '0.1.1-rc.13'
-
-export const DAO_ADDRESS = require('@dorgtech/test-env-experimental/daos.json').demo[LATEST_ARC_VERSION]
 
 export const PluginRegistrar = (dao: string, plugin: string) => {
   const values: IProposalCreateOptionsSR = {

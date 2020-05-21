@@ -1,8 +1,11 @@
 import * as React from "react";
-import { Proposals, Proposal, ProposalData, ProposalEntity, Plugins, PluginData, Plugin } from "@daostack/arc.react";
-import { Divider, Select, Switch, FormControl, InputLabel, FormGroup, FormControlLabel } from "@material-ui/core";
+import { Proposals, Proposal, ProposalData, ProposalEntity, Plugins, PluginData, Plugin, DAOData } from "@daostack/arc.react";
+import { Divider, Select, Switch, FormControl, FormHelperText, FormGroup, FormControlLabel } from "@material-ui/core";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import AddBoxIcon from "@material-ui/icons/AddBox";
+
 import { History, Actives } from "./";
+import { Create } from "./Create";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,16 +31,22 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export function DAOProposals() {
+interface IProps {
+  dao: DAOData;
+}
+
+export function DAOProposals(props: IProps) {
+  const { dao } = props;
   const classes = useStyles();
-  const oldProposals = { where: { stage_in: [1, 2] } };
-  const activeProposals = { where: { stage_in: [3, 4, 5] } };
+  const oldProposals = { where: { stage_in: [0, 1] } };
+  const activeProposals = { where: { stage_in: [2, 3, 4, 5] } };
   const [currentProposals, setCurrentProposals] = React.useState(activeProposals);
-  const [selectedPlugin, setSelectedPlugin] = React.useState<string>("");
+  const [selectedPlugin, selectPlugin] = React.useState<string>("");
   const [showingHistory, setShowingHistory] = React.useState<boolean>(false);
+  const [creatingProposal, setCreatingProposal] = React.useState<boolean>(false);
 
   const changePlugin = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setSelectedPlugin(event.target.value as string);
+    selectPlugin(event.target.value as string);
   };
 
   const showHistory = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,11 +55,14 @@ export function DAOProposals() {
     setCurrentProposals(newList);
   };
 
+  const newView = () => {
+    setCreatingProposal(true);
+  };
+
   const ProposalFilters = () => {
     return (
       <FormGroup row>
         <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="plugin-filter">Plugin filter</InputLabel>
           <Select
             native
             value={selectedPlugin}
@@ -61,9 +73,17 @@ export function DAOProposals() {
             }}
           >
             <Plugins from="DAO">
-              <Plugin.Data>{(pluginData: PluginData) => <option value={pluginData.id}>{pluginData.name}</option>}</Plugin.Data>
+              <Plugin.Data>
+                {(pluginData: PluginData) => {
+                  if (!selectedPlugin) {
+                    selectPlugin(pluginData.id);
+                  }
+                  return <option value={pluginData.id}>{pluginData.name}</option>;
+                }}
+              </Plugin.Data>
             </Plugins>
           </Select>
+          <FormHelperText>Plugin filter</FormHelperText>
         </FormControl>
         <FormControlLabel
           control={
@@ -77,6 +97,7 @@ export function DAOProposals() {
           }
           label="History"
         />
+        <AddBoxIcon onClick={newView} />
       </FormGroup>
     );
   };
@@ -95,7 +116,9 @@ export function DAOProposals() {
     </Proposal.Data>
   );
 
-  return (
+  return creatingProposal ? (
+    <Create pluginId={selectedPlugin} dao={dao} creatingProposal={setCreatingProposal} />
+  ) : (
     <>
       <ProposalFilters />
       <Divider />

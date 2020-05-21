@@ -3,7 +3,6 @@ import { Card, CardActions, CardContent, Button, Typography, Divider } from "@ma
 import { makeStyles } from "@material-ui/core/styles";
 
 import { Web3Context } from "../../utils/auth";
-import { createProposal } from "../../utils/mocks";
 import { ProposalData, ProposalEntity } from "@daostack/arc.react";
 
 const useStyles = makeStyles({
