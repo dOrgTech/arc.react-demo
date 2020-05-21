@@ -1,6 +1,6 @@
-import { PluginEntity } from "@daostack/arc.react";
+import { PluginEntity } from "@dorgtech/arc.react";
 import {
-  BN,
+  // BN,
   IProposalCreateOptionsCR,
   IProposalCreateOptionsCRExt,
   IProposalCreateOptionsComp,
@@ -10,10 +10,6 @@ import {
   IProposalCreateOptionsSR,
   IProposalBaseCreateOptions
 } from "./types";
-
-export const LATEST_ARC_VERSION = '0.1.1-rc.13'
-
-export const DAO_ADDRESS = require('@dorgtech/test-env-experimental/daos.json').demo[LATEST_ARC_VERSION]
 
 export const PluginRegistrar = (dao: string, plugin: string) => {
   const values: IProposalCreateOptionsSR = {
@@ -61,15 +57,15 @@ export const ContributionRewardExt = (dao: string, plugin: string) => {
   return values;
 };
 
-export const JoinAndQuit = (dao: string, plugin: string) => {
-  const values: IProposalCreateOptionsJoinAndQuit = {
-    descriptionHash: "hola",
-    fee: new BN(1000),
-    dao,
-    plugin
-  };
-  return values;
-};
+// export const JoinAndQuit = (dao: string, plugin: string) => {
+//   const values: IProposalCreateOptionsJoinAndQuit = {
+//     descriptionHash: "hola",
+//     fee: new BN(1000),
+//     dao,
+//     plugin
+//   };
+//   return values;
+// };
 
 export const Competition = (dao: string, plugin: string) => {
   const time = new Date();
@@ -94,16 +90,16 @@ export const Competition = (dao: string, plugin: string) => {
   return values;
 };
 
-export const FundingRequest = (dao: string, plugin: string) => {
-  const values: IProposalCreateOptionsFundingRequest = {
-    beneficiary: "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
-    amount: new BN(1000),
-    descriptionHash: "0x10",
-    dao,
-    plugin,
-  };
-  return values;
-};
+// export const FundingRequest = (dao: string, plugin: string) => {
+//   const values: IProposalCreateOptionsFundingRequest = {
+//     beneficiary: "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
+//     amount: new BN(1000),
+//     descriptionHash: "0x10",
+//     dao,
+//     plugin,
+//   };
+//   return values;
+// };
 
 export const GenericPlugin = (dao: string, plugin: string) => {
   const values : IProposalCreateOptionsGS = {
@@ -130,18 +126,18 @@ export const createProposal = async (pluginEntity: PluginEntity, dao: any, creat
       case "Competition":
         mockedValues = Competition(dao, address);
         break;
-      case "JoinAndQuit":
-        mockedValues = JoinAndQuit(dao, address);
-        break;
+      // case "JoinAndQuit":
+      //   mockedValues = JoinAndQuit(dao, address);
+      //   break;
       case "ContributionReward":
         mockedValues = ContributionReward(dao, address, creator);
         break;
       case "ContributionRewardExt":
         mockedValues = ContributionRewardExt(dao, address);
         break;
-      case "FundingRequest":
-        mockedValues = FundingRequest(dao, address);
-        break;
+      // case "FundingRequest":
+      //   mockedValues = FundingRequest(dao, address);
+      //   break;
       case "GenericScheme":
         mockedValues = GenericPlugin(dao, address);
         break;

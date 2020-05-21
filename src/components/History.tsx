@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Proposals, Proposal, ProposalData } from "@daostack/arc.react";
+import { Proposals, Proposal, ProposalData } from "@dorgtech/arc.react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardActions, CardContent, Button, Typography, Divider } from "@material-ui/core";
 

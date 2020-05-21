@@ -5,7 +5,7 @@ import BuildIcon from "@material-ui/icons/Build";
 import GroupIcon from "@material-ui/icons/Group";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import HistoryIcon from "@material-ui/icons/History";
-import { DAO, DAOData } from "@daostack/arc.react";
+import { DAO, DAOData } from "@dorgtech/arc.react";
 
 import { DAOPlugins, DAOMembers, DAOProposals, Vault } from "./";
 

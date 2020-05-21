@@ -8,7 +8,7 @@ import {
   Proposal,
   ProposalData,
   ProposalEntity
-} from "@daostack/arc.react";
+} from "@dorgtech/arc.react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   List,
