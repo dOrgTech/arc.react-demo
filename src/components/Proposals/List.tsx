@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Proposals, Proposal, ProposalData, ProposalEntity, Plugins, PluginData, Plugin, DAOData } from "@daostack/arc.react";
+import { Proposals, Proposal, ProposalData, ProposalEntity, Plugins, PluginData, Plugin, DAOData } from "@dorgtech/arc.react";
 import { Divider, Select, Switch, FormControl, FormHelperText, FormGroup, FormControlLabel, Fade } from "@material-ui/core";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import AddBoxIcon from "@material-ui/icons/AddBox";

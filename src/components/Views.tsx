@@ -4,7 +4,7 @@ import { BottomNavigation, BottomNavigationAction, Typography, Paper } from "@ma
 import BuildIcon from "@material-ui/icons/Build";
 import GroupIcon from "@material-ui/icons/Group";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
-import { DAO, DAOData } from "@daostack/arc.react";
+import { DAO, DAOData } from "@dorgtech/arc.react";
 
 import { DAOMembers, DAOProposals, Vault } from "./";
 import { formatTokens } from "../utils/tokenFormatter";

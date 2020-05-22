@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ProposalData } from "@daostack/arc.react";
+import { ProposalData } from "@dorgtech/arc.react";
 import { Card, CardActions, CardContent, Button, Typography, Divider } from "@material-ui/core";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 

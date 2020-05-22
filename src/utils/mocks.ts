@@ -1,4 +1,4 @@
-import { PluginEntity } from "@daostack/arc.react";
+import { PluginEntity } from "@dorgtech/arc.react";
 import {
   // BN,
   IProposalCreateOptionsCR,
@@ -10,7 +10,6 @@ import {
   IProposalCreateOptionsSR,
   IProposalBaseCreateOptions
 } from "./types";
-
 
 export const PluginRegistrar = (dao: string, plugin: string) => {
   const values: IProposalCreateOptionsSR = {
@@ -127,18 +126,18 @@ export const createProposal = async (pluginEntity: PluginEntity, dao: any, creat
       case "Competition":
         mockedValues = Competition(dao, address);
         break;
-      case "JoinAndQuit":
-        mockedValues = JoinAndQuit(dao, address);
-        break;
+      // case "JoinAndQuit":
+      //   mockedValues = JoinAndQuit(dao, address);
+      //   break;
       case "ContributionReward":
         mockedValues = ContributionReward(dao, address, creator);
         break;
       case "ContributionRewardExt":
         mockedValues = ContributionRewardExt(dao, address);
         break;
-      case "FundingRequest":
-        mockedValues = FundingRequest(dao, address);
-        break;
+      // case "FundingRequest":
+      //   mockedValues = FundingRequest(dao, address);
+      //   break;
       case "GenericScheme":
         mockedValues = GenericPlugin(dao, address);
         break;

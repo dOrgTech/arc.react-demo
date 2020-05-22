@@ -1,5 +1,5 @@
 import React from "react";
-import { Members, Member, MemberData, DAOData } from "@daostack/arc.react";
+import { Members, Member, MemberData, DAOData } from "@dorgtech/arc.react";
 import { List, ListItem, ListItemAvatar, Avatar, ListItemText, Divider } from "@material-ui/core";
 import PersonIcon from "@material-ui/icons/Person";
 

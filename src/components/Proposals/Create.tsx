@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { DAOData, PluginEntity, Plugin, PluginData } from "@daostack/arc.react";
+import { DAOData, PluginEntity, Plugin, PluginData } from "@dorgtech/arc.react";
 import { Typography, Grid } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { createProposal } from "../../utils/mocks";

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Token, TokenData, DAOData } from "@daostack/arc.react";
+import { Token, TokenData, DAOData } from "@dorgtech/arc.react";
 import { Button, Typography } from "@material-ui/core";
 import { formatTokens } from "../utils/tokenFormatter";
 

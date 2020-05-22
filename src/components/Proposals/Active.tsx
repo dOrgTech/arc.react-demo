@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import BN from 'bn.js'
 
 import { Web3Context } from "../../utils/auth";
-import { ProposalData, ProposalEntity } from "@daostack/arc.react";
+import { ProposalData, ProposalEntity } from "@dorgtech/arc.react";
 
 const useStyles = makeStyles({
   root: {

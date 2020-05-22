@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ArcConfig, Arc, networkSettings } from "@daostack/arc.react";
+import { ArcConfig, Arc, networkSettings } from "@dorgtech/arc.react";
 import { Grid, Paper } from "@material-ui/core";
 import { Views, Header } from "./components";
 import Web3Provider from "./utils/auth";
