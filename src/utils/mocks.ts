@@ -1,6 +1,6 @@
 import { PluginEntity } from "@daostack/arc.react";
 import {
-  BN,
+  // BN,
   IProposalCreateOptionsCR,
   IProposalCreateOptionsCRExt,
   IProposalCreateOptionsComp,
@@ -61,7 +61,7 @@ export const ContributionRewardExt = (dao: string, plugin: string) => {
 export const JoinAndQuit = (dao: string, plugin: string) => {
   const values: IProposalCreateOptionsJoinAndQuit = {
     descriptionHash: "hola",
-    fee: new BN(1000),
+    // fee: new BN(1000),
     dao,
     plugin
   };
@@ -94,7 +94,7 @@ export const Competition = (dao: string, plugin: string) => {
 export const FundingRequest = (dao: string, plugin: string) => {
   const values: IProposalCreateOptionsFundingRequest = {
     beneficiary: "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
-    amount: new BN(1000),
+    // amount: new BN(1000),
     descriptionHash: "0x10",
     dao,
     plugin,

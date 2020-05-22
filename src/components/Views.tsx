@@ -7,6 +7,7 @@ import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import { DAO, DAOData } from "@daostack/arc.react";
 
 import { DAOMembers, DAOProposals, Vault } from "./";
+import { formatTokens } from "../utils/tokenFormatter";
 // import { BN } from "../utils/types";
 
 const useStyles = makeStyles({
@@ -30,9 +31,6 @@ export function Views() {
     <BottomNavigation
       value={value}
       onChange={(event, newValue) => {
-        if (newValue === 2) {
-          window.location.href = `https://etherscan.io/tokenholdings?a=${DAO_ADDRESS}`;
-        }
         setValue(newValue);
       }}
       showLabels
@@ -52,26 +50,18 @@ export function Views() {
       <DAO address={DAO_ADDRESS}>
         <DAO.Data>
           {(daoData: DAOData) => {
-          /*           
-            const PRECISION = 2; // number of digits "behind the dot"
-            const PRECISIONPOWER = 10 ** PRECISION;
-            const totalRep = dao.reputationTotalSupply.mul(new BN(PRECISIONPOWER)).div(new BN(10).pow(new BN(18))).abs()
-            console.log(totalRep.ltn(100000))
-            const f = totalRep.div(new BN(1000000000)).toNumber() / PRECISIONPOWER
-            console.log(f) 
-          */
             return (
               <>
-                <Paper variant="outlined" style={{ width: 400, height: 50 }}>
+                <Paper variant="outlined" style={{ width: 400, height: 85 }}>
                   <Typography className={classes.daoInfo} align="center" variant="subtitle1">
                     {daoData.name}
                   </Typography>
                   <Typography className={classes.daoInfo} align="center" variant="subtitle1">
-                    {/* {dao.reputationTotalSupply.idivn(10000000).toNumber()} */}
+                    {formatTokens(daoData.reputationTotalSupply)} REP
                   </Typography>
                 </Paper>
                 <Tab />
-                <CurrentSection dao={daoData}/>
+                <CurrentSection dao={daoData} />
               </>
             );
           }}

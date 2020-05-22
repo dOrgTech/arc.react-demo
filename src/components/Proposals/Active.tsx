@@ -1,14 +1,15 @@
 import React, { useContext } from "react";
-import { Card, CardActions, CardContent, Button, Typography, Divider } from "@material-ui/core";
+import { Card, CardActions, CardContent, Button, Typography, Divider, Snackbar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import BN from 'bn.js'
 
 import { Web3Context } from "../../utils/auth";
 import { ProposalData, ProposalEntity } from "@daostack/arc.react";
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 275,
-    maxWidth: 350
+    maxWidth: 400,
+    minWidth: 400
   },
   bullet: {
     display: "inline-block",
@@ -26,13 +27,28 @@ const useStyles = makeStyles({
 interface IProps {
   proposalData: ProposalData;
   proposalEntity: ProposalEntity;
+  totalRep: BN
+}
+
+const showPercentage = (votes: BN, totalRep: BN) => {
+  return votes.muln(100).div(totalRep).toNumber();
+}
+
+const executeVote = async (decision: number, proposalEntity: ProposalEntity) => {
+  try {
+    await proposalEntity.vote(decision).send();
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 export const Actives = (props: IProps) => {
   const classes = useStyles();
   const { proposalData, proposalEntity } = props;
+  const [ voting, isVoting ] = React.useState<boolean>(false)
   const { title, description, tags, votesFor, votesAgainst, votes } = proposalData;
   const web3 = useContext(Web3Context);
+  // is this the best way?
   const alreadyVoted = votes.some(async vote => {
     await vote.entity.fetchState();
     return vote.entity.coreState?.voter === web3.address;
@@ -51,7 +67,7 @@ export const Actives = (props: IProps) => {
             {tags ? tags : "No tags"}
           </Typography>
           <Typography variant="body2" component="p">
-            For: {votesFor.toString()} - Agaisnt: {votesAgainst.toString()}
+            For: {showPercentage(votesFor, props.totalRep)}% - Against: {showPercentage(votesAgainst, props.totalRep)}%
           </Typography>
         </CardContent>
         <CardActions>
@@ -60,13 +76,7 @@ export const Actives = (props: IProps) => {
           ) : (
             <Button
               size="small"
-              onClick={async () => {
-                try {
-                  await proposalEntity.vote(1).send();
-                } catch (e) {
-                  console.log(e);
-                }
-              }}
+              onClick={() => isVoting(true)}
             >
               Vote
             </Button>
@@ -75,6 +85,23 @@ export const Actives = (props: IProps) => {
       </Card>
       <br />
       <Divider />
+      <Snackbar
+        open={voting}
+        message={title ? title : "No title "}
+        action={
+          <>
+            <Button color="primary" size="small" onClick={() => executeVote(1, proposalEntity)}>
+              For
+            </Button>
+            <Button color="secondary" size="small" onClick={() => executeVote(2, proposalEntity)}>
+              Against
+            </Button>
+            <Button color="inherit" size="small" onClick={() => isVoting(false)}>
+              Cancel
+            </Button>
+          </>
+        }
+      />
     </>
   );
 };

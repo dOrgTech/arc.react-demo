@@ -5,7 +5,8 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
-    width: 400
+    maxWidth: 400,
+    minWidth: 400
   },
   bullet: {
     display: "inline-block",
