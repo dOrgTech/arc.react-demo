@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Token, TokenData, DAOData } from "@dorgtech/arc.react";
 import { Button, Typography } from "@material-ui/core";
-import { formatTokens } from "../utils/tokenFormatter";
+import { formatTokens } from "../utils/protocolHelpers";
 
 interface IProps {
   dao: DAOData;

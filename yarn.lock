@@ -1046,10 +1046,10 @@
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-10.1.0.tgz#f0950bba18819512d42f7197e56c518aa491cf18"
   integrity sha512-ij4wRiunFfaJxjB0BdrYHIH8FxBJpOwNPhhAcunlmPdXudL1WQV1qoP9un6JsEBAgQH+7UXyyjh0g7jTxXK6tg==
 
-"@dorgtech/arc.js@2.0.0-experimental.32":
-  version "2.0.0-experimental.32"
-  resolved "https://registry.yarnpkg.com/@dorgtech/arc.js/-/arc.js-2.0.0-experimental.32.tgz#92094a2ed5fb319e6166e780f549d34113c3a944"
-  integrity sha512-5cDxhRyf4TP6iVjL1OGJ744RTqwYQoYh6qD68JCrkI5fK14BxGgpOqzvbvY9HhhIrmUgILG3ZWDJuKQwAw+Xgg==
+"@daostack/arc.js@2.0.0-experimental.33":
+  version "2.0.0-experimental.33"
+  resolved "https://registry.yarnpkg.com/@daostack/arc.js/-/arc.js-2.0.0-experimental.33.tgz#e6f6fc75b5c294fd28eb4c6f804c6766873d2166"
+  integrity sha512-neaS6CAXSv/ST351EDOfKo0fMbwoIvTIQumvXMrc32LA6U5I51VByqAKhnPZar9TJxoZr14BMle2XeV1NPbdag==
   dependencies:
     apollo-cache-inmemory "^1.6.5"
     apollo-client "^2.6.8"
@@ -1069,12 +1069,12 @@
     subscriptions-transport-ws "^0.9.16"
     ws "^6.2.1"
 
-"@dorgtech/arc.react@0.0.1-alpha1":
-  version "0.0.1-alpha1"
-  resolved "https://registry.yarnpkg.com/@dorgtech/arc.react/-/arc.react-0.0.1-alpha1.tgz#4532c691d8ef0e06794a79388b4473c7b1135868"
-  integrity sha512-7UwuxaD1CYVXOyE7DEC0erR98cyzL8YqWPKfsykmt9lgcgJP478lcTOqrGg/DU/yd6k3fem7q8/3Ib6vvU8LQg==
+"@dorgtech/arc.react@0.0.1-alpha.2":
+  version "0.0.1-alpha.2"
+  resolved "https://registry.yarnpkg.com/@dorgtech/arc.react/-/arc.react-0.0.1-alpha.2.tgz#e44c0618045e5a4e0a97342c0df155c39f2c885f"
+  integrity sha512-vTDRUF6YclfDvGih7Nf2PLLJoU61efNCSCxqB/9dxhRy4RXuzNim6wdVGbRn1yYdv2PavZpsd5VfGP+4FspRLA==
   dependencies:
-    "@dorgtech/arc.js" "2.0.0-experimental.32"
+    "@daostack/arc.js" "2.0.0-experimental.33"
     apollo-link-retry "^2.2.16"
     memoize-one "^5.0.0"
     ramda "^0.26.1"
@@ -7370,6 +7370,11 @@ mkdirp@^0.5.1, mkdirp@^0.5.3, mkdirp@~0.5.1:
   integrity sha512-NKmAlESf6jMGym1++R0Ra7wvhV+wFW63FaSOFPwRahvea0gMUcGUhVeAg/0BC0wiv9ih5NYPB1Wn1UEI1/L+xQ==
   dependencies:
     minimist "^1.2.5"
+
+moment@^2.26.0:
+  version "2.26.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.26.0.tgz#5e1f82c6bafca6e83e808b30c8705eed0dcbd39a"
+  integrity sha512-oIixUO+OamkUkwjhAVE18rAMfRJNsNe/Stid/gwHSOfHrOtw9EhAY2AHvdKZ/k/MggcYELFCJz/Sn2pL8b8JMw==
 
 move-concurrently@^1.0.1:
   version "1.0.1"

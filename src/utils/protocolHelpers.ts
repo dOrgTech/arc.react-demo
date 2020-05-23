@@ -1,4 +1,5 @@
 import BN from "bn.js";
+import moment from "moment";
 
 // Getting this function from alchemy
 // https://github.com/daostack/alchemy/blob/dev/src/lib/util.ts#L180
@@ -62,3 +63,56 @@ export function formatTokens(
   const returnString = `${toLocaleString(fractionalNumber)}${units}`;
   return toSignedString(returnString);
 }
+
+// Showing the time left for a proposal, also getting it from alchemy
+// https://github.com/daostack/alchemy/blob/dev/src/components/Shared/ProposalCountdown.tsx#L37
+export const closingTime = (proposal: any) => {
+  let time;
+  switch (proposal.stage) {
+    case 0:
+    case 2:
+      time = moment((proposal.createdAt + proposal.genesisProtocolParams.queuedVotePeriodLimit) * 1000)
+      break
+    case 3:
+      time = moment((proposal.preBoostedAt + proposal.genesisProtocolParams.preBoostedVotePeriodLimit) * 1000)
+      break
+    case 4:
+      time = moment((proposal.boostedAt + proposal.genesisProtocolParams.boostedVotePeriodLimit) * 1000)
+      break
+    case 5:
+      time = moment((proposal.quietEndingPeriodBeganAt + proposal.genesisProtocolParams.quietEndingPeriod) * 1000)
+      break
+    case 1:
+      time = moment(proposal.executedAt * 1000)
+      break
+  }
+  if (time) {
+    return calculateCountdown(time)
+  }
+};
+
+function calculateCountdown(endDate: Date | moment.Moment) {
+  const endDateMoment = moment(endDate);
+  const now = new Date();
+
+  const diff = endDateMoment.diff(now);
+
+  // clear countdown when date is reached
+  if (diff <= 0) {
+    return "Completed"
+  }
+
+  const duration = moment.duration(diff);
+  const timeLeft = {
+    years: duration.years(),
+    days: duration.days(),
+    hours: duration.hours(),
+    min: duration.minutes(),
+    seconds: duration.seconds(),
+    complete: false,
+  };
+
+  const { hours, min, seconds } = timeLeft
+  return `${hours}:${min}:${seconds}`;
+}
+

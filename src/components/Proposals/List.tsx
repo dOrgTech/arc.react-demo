@@ -40,8 +40,8 @@ export function DAOProposals(props: IProps) {
   const { dao } = props;
   const classes = useStyles();
   const oldProposals = { where: { stage_in: [0, 1] } };
-  const activeProposals = { where: { stage_in: [2, 3, 4, 5] } };
-  const [currentProposals, setCurrentProposals] = React.useState(activeProposals);
+  const activeProposals = { where: { stage_in: [2, 3, 4, 5] }, orderBy: "closingAt", orderDirection: "desc" };
+  const [currentProposals, setCurrentProposals] = React.useState<any>(activeProposals);
   const [selectedPlugin, selectPlugin] = React.useState<string>("");
   const [showingHistory, setShowingHistory] = React.useState<boolean>(false);
   const [showingAll, setShowingAll] = React.useState<boolean>(true);
@@ -73,6 +73,10 @@ export function DAOProposals(props: IProps) {
   const ProposalFilters = () => {
     return (
       <>
+      <div style={{textAlign: "center"}}>
+        * If you want to create a proposal, please deactivate the all plugins toggle,
+        select a plugin, then click on the + icon
+      </div>
         <FormGroup row>
           <FormControlLabel
             control={
@@ -96,7 +100,7 @@ export function DAOProposals(props: IProps) {
             }
             label="History"
           />
-          {(!showingAll && selectedPlugin) && <AddBoxIcon style={{ paddingTop: 7 }} onClick={newView} />}
+          {!showingAll && selectedPlugin && <AddBoxIcon style={{ paddingTop: 7 }} onClick={newView} />}
         </FormGroup>
         {!showingAll && (
           <FormControl className={classes.formControl}>
@@ -147,7 +151,9 @@ export function DAOProposals(props: IProps) {
 
   return creatingProposal ? (
     <Fade in={creatingProposal}>
-      <Create pluginId={selectedPlugin} dao={dao} creatingProposal={setCreatingProposal} />
+      <Plugin id={selectedPlugin}>
+        <Create dao={dao} creatingProposal={setCreatingProposal} />
+      </Plugin>
     </Fade>
   ) : (
     <>

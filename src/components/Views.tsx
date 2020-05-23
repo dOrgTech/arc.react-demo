@@ -7,8 +7,7 @@ import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import { DAO, DAOData } from "@dorgtech/arc.react";
 
 import { DAOMembers, DAOProposals, Vault } from "./";
-import { formatTokens } from "../utils/tokenFormatter";
-// import { BN } from "../utils/types";
+import { formatTokens } from "../utils/protocolHelpers";
 
 const useStyles = makeStyles({
   root: {
@@ -38,7 +37,6 @@ export function Views() {
     >
       <BottomNavigationAction label="Proposals" icon={<BuildIcon />} />
       <BottomNavigationAction label="Members" icon={<GroupIcon />} />
-      {/* <BottomNavigationAction label="History" icon={<HistoryIcon />} /> */}
       <BottomNavigationAction label="Vault" icon={<AccountBalanceIcon />} />
     </BottomNavigation>
   );

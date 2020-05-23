@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { ProposalData } from "@dorgtech/arc.react";
 import { Card, CardActions, CardContent, Button, Typography, Divider } from "@material-ui/core";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
