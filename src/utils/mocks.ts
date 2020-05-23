@@ -57,15 +57,15 @@ export const ContributionRewardExt = (dao: string, plugin: string) => {
   return values;
 };
 
-// export const JoinAndQuit = (dao: string, plugin: string) => {
-//   const values: IProposalCreateOptionsJoinAndQuit = {
-//     descriptionHash: "hola",
-//     fee: new BN(1000),
-//     dao,
-//     plugin
-//   };
-//   return values;
-// };
+export const JoinAndQuit = (dao: string, plugin: string) => {
+  const values: IProposalCreateOptionsJoinAndQuit = {
+    descriptionHash: "hola",
+    // fee: new BN(1000),
+    dao,
+    plugin
+  };
+  return values;
+};
 
 export const Competition = (dao: string, plugin: string) => {
   const time = new Date();
@@ -90,16 +90,16 @@ export const Competition = (dao: string, plugin: string) => {
   return values;
 };
 
-// export const FundingRequest = (dao: string, plugin: string) => {
-//   const values: IProposalCreateOptionsFundingRequest = {
-//     beneficiary: "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
-//     amount: new BN(1000),
-//     descriptionHash: "0x10",
-//     dao,
-//     plugin,
-//   };
-//   return values;
-// };
+export const FundingRequest = (dao: string, plugin: string) => {
+  const values: IProposalCreateOptionsFundingRequest = {
+    beneficiary: "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
+    // amount: new BN(1000),
+    descriptionHash: "0x10",
+    dao,
+    plugin,
+  };
+  return values;
+};
 
 export const GenericPlugin = (dao: string, plugin: string) => {
   const values : IProposalCreateOptionsGS = {
