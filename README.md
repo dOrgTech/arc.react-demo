@@ -6,13 +6,13 @@
 - docker
 - docker-compose
 
+Please make sure docker is running in your PC!
+
 ## Running 
 
 > `nvm install`  
 > `nvm use`  
-> `yarn` 
-
-### Run in different terminals
-
-> `yarn graphnode`  
+> `yarn`  
 > `yarn start`
+
+
