@@ -46,7 +46,7 @@ export const Actives = (props: IProps) => {
   const classes = useStyles();
   const { proposalData, proposalEntity } = props;
   const [voting, isVoting] = React.useState<boolean>(false);
-  const { title, description, tags, votesFor, votesAgainst, votes } = proposalData;
+  const { title, description, tags, votesFor, votesAgainst, votes, plugin } = proposalData;
   const [timeLeft, setTimeLeft] = React.useState<string | undefined>(closingTime(proposalData));
 
   setInterval(() => {
@@ -83,6 +83,9 @@ export const Actives = (props: IProps) => {
           </Typography>
           <Typography variant="body2" component="p">
             {tags ? tags : "No tags"}
+          </Typography>
+          <Typography className={classes.pos} color="textSecondary">
+            {plugin.entity.coreState?.name}
           </Typography>
           <Typography variant="body2" component="p">
             For: {showPercentage(votesFor, props.totalRep)}% - Against: {showPercentage(votesAgainst, props.totalRep)}%

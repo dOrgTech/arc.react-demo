@@ -1,6 +1,24 @@
 import * as React from "react";
-import { Proposals, Proposal, ProposalData, ProposalEntity, Plugins, PluginData, Plugin, DAOData } from "@dorgtech/arc.react";
-import { Divider, Select, Switch, FormControl, FormHelperText, FormGroup, FormControlLabel, Fade } from "@material-ui/core";
+import { Proposals,
+  Proposal,
+  ProposalData,
+  ProposalEntity,
+  Plugins,
+  Plugin,
+  DAOData,
+  usePlugin 
+} from "@dorgtech/arc.react";
+import { 
+  Divider,
+  Select,
+  Switch,
+  FormControl,
+  FormHelperText,
+  FormGroup,
+  FormControlLabel,
+  Fade,
+  Typography 
+} from "@material-ui/core";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import BN from "bn.js";
@@ -44,10 +62,14 @@ export function DAOProposals(props: IProps) {
   const [currentProposals, setCurrentProposals] = React.useState<any>(activeProposals);
   const [selectedPlugin, selectPlugin] = React.useState<string>("");
   const [showingHistory, setShowingHistory] = React.useState<boolean>(false);
-  const [showingAll, setShowingAll] = React.useState<boolean>(true);
   const [creatingProposal, setCreatingProposal] = React.useState<boolean>(false);
+  const [daoPlugins, setDaoPlugins] = React.useState<any>([{ id: "", name: "All plugins" }])
 
   const changePlugin = (event: React.ChangeEvent<{ value: unknown }>) => {
+    if (event.target.value === "") {
+      const newList = showingHistory ? oldProposals : activeProposals;
+      setCurrentProposals(newList);
+    }
     selectPlugin(event.target.value as string);
   };
 
@@ -57,15 +79,6 @@ export function DAOProposals(props: IProps) {
     setCurrentProposals(newList);
   };
 
-  const showAll = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      selectPlugin("");
-    }
-    const newList = showingHistory ? oldProposals : activeProposals;
-    setCurrentProposals(newList);
-    setShowingAll(event.target.checked);
-  };
-
   const newView = () => {
     setCreatingProposal(true);
   };
@@ -73,22 +86,11 @@ export function DAOProposals(props: IProps) {
   const ProposalFilters = () => {
     return (
       <>
-      <div style={{textAlign: "center"}}>
-        * If you want to create a proposal, please deactivate the all plugins toggle,
-        select a plugin, then click on the + icon
-      </div>
+        <Plugins from="DAO">
+          <PluginOptions />
+        </Plugins>
         <FormGroup row>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={showingAll}
-                onChange={showAll}
-                color="secondary"
-                inputProps={{ "aria-label": "primary checkbox" }}
-              />
-            }
-            label="All plugins"
-          />
+          <Typography style={{ marginTop: "6.5px", marginRight: "6px" }} variant="body1">Active</Typography >
           <FormControlLabel
             control={
               <Switch
@@ -98,38 +100,32 @@ export function DAOProposals(props: IProps) {
                 inputProps={{ "aria-label": "primary checkbox" }}
               />
             }
-            label="History"
+            label="Historical"
           />
-          {!showingAll && selectedPlugin && <AddBoxIcon style={{ paddingTop: 7 }} onClick={newView} />}
+          {selectedPlugin && <AddBoxIcon style={{ paddingTop: 7 }} onClick={newView} />}
         </FormGroup>
-        {!showingAll && (
-          <FormControl className={classes.formControl}>
-            <Select
-              native
-              value={selectedPlugin}
-              onChange={changePlugin}
-              inputProps={{
-                name: "plugin",
-                id: "plugin-filter"
-              }}
-            >
-              <Plugins from="DAO">
-                <Plugin.Data>
-                  {(pluginData: PluginData) => {
-                    if (!selectedPlugin) {
-                      selectPlugin(pluginData.id);
-                    }
-                    return <option value={pluginData.id}>{pluginData.name}</option>;
-                  }}
-                </Plugin.Data>
-              </Plugins>
-            </Select>
-            <FormHelperText>Plugin filter</FormHelperText>
-          </FormControl>
-        )}
+        <FormControl className={classes.formControl}>
+          <Select 
+            native
+            value={selectedPlugin}
+            onChange={changePlugin}
+          >
+            {daoPlugins.map((plugin: any)=><option key={`plugin_${plugin.id}`} value={plugin.id}>{plugin.name}</option>)}
+          </Select>
+          <FormHelperText>Plugin filter</FormHelperText>
+        </FormControl>
       </>
     );
   };
+
+  const PluginOptions = () => {
+    const [pluginData] = usePlugin()
+    const checkIfExists = (plugin: any) => plugin.name === pluginData?.name
+    if (!(daoPlugins.some(checkIfExists)) && pluginData) {
+      setDaoPlugins([...daoPlugins, {id: pluginData?.id, name: pluginData?.name }])
+    }
+    return <></>
+  }
 
   interface IListProps {
     totalRep: BN;
@@ -159,7 +155,7 @@ export function DAOProposals(props: IProps) {
     <>
       <ProposalFilters />
       <Divider />
-      {selectedPlugin && !showingAll ? (
+      {selectedPlugin ? (
         <Plugin id={selectedPlugin}>
           <Proposals filter={currentProposals} from="Plugin">
             <ProposalList totalRep={dao.reputationTotalSupply} />

@@ -1,13 +1,15 @@
 import * as React from "react";
-import { Token, TokenData, DAOData } from "@dorgtech/arc.react";
+import { Token, TokenData, DAOData, DAOEntity, TokenEntity } from "@dorgtech/arc.react";
 import { Button, Typography } from "@material-ui/core";
 import { formatTokens } from "../utils/protocolHelpers";
 
 interface IProps {
   dao: DAOData;
+  daoEntity: DAOEntity
 }
 
 export const Vault = (props: IProps) => {
+  const [ethBalance, setEthBalance] = React.useState<number>(0)
   const toEtherscan = () => {
     window.location.href = `https://etherscan.io/tokenholdings?a=${props.dao.id}`;
   };
@@ -17,14 +19,18 @@ export const Vault = (props: IProps) => {
     <>
       <Token>
         <Token.Data>
-          {(token: TokenData) => (
+        <Token.Entity>
+          {(token: TokenData, tokenEntity: TokenEntity) => (
             <div>
-              <Typography variant="h5">{token.name}</Typography>
+              {/* <Typography variant="h6" align="center">
+                {tokenEntity.balanceOf(props.dao.id).subscribe((data: any) => data.toNumber())}
+              </Typography> */}
               <Typography variant="h6" align="center">
-                {formatTokens(token.totalSupply)} {token.symbol}
+                {token.name}: {formatTokens(token.totalSupply)} {token.symbol}
               </Typography>
             </div>
           )}
+        </Token.Entity>
         </Token.Data>
       </Token>
       <Button onClick={toEtherscan}>Go to etherscan</Button>

@@ -4,7 +4,7 @@ import { BottomNavigation, BottomNavigationAction, Typography, Paper } from "@ma
 import BuildIcon from "@material-ui/icons/Build";
 import GroupIcon from "@material-ui/icons/Group";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
-import { DAO, DAOData } from "@dorgtech/arc.react";
+import { DAO, DAOData, DAOEntity } from "@dorgtech/arc.react";
 
 import { DAOMembers, DAOProposals, Vault } from "./";
 import { formatTokens } from "../utils/protocolHelpers";
@@ -47,7 +47,8 @@ export function Views() {
     <>
       <DAO address={DAO_ADDRESS}>
         <DAO.Data>
-          {(daoData: DAOData) => {
+        <DAO.Entity>
+          {(daoData: DAOData, daoEntity: DAOEntity) => {
             return (
               <>
                 <Paper variant="outlined" style={{ width: 400, height: 85 }}>
@@ -59,10 +60,11 @@ export function Views() {
                   </Typography>
                 </Paper>
                 <Tab />
-                <CurrentSection dao={daoData} />
+                <CurrentSection dao={daoData} daoEntity={daoEntity} />
               </>
             );
           }}
+        </DAO.Entity>
         </DAO.Data>
       </DAO>
     </>
