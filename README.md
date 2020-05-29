@@ -10,9 +10,8 @@ Please make sure docker is running in your PC!
 
 ## Running 
 
-> `nvm install`  
-> `nvm use`  
-> `yarn`  
-> `yarn start`
+`yarn`  
+
+`yarn start`
 
 
