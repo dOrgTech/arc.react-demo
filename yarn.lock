@@ -1069,10 +1069,10 @@
     subscriptions-transport-ws "^0.9.16"
     ws "^6.2.1"
 
-"@dorgtech/arc.react@0.0.1-alpha.2":
-  version "0.0.1-alpha.2"
-  resolved "https://registry.yarnpkg.com/@dorgtech/arc.react/-/arc.react-0.0.1-alpha.2.tgz#e44c0618045e5a4e0a97342c0df155c39f2c885f"
-  integrity sha512-vTDRUF6YclfDvGih7Nf2PLLJoU61efNCSCxqB/9dxhRy4RXuzNim6wdVGbRn1yYdv2PavZpsd5VfGP+4FspRLA==
+"@dorgtech/arc.react@0.0.1-alpha.4":
+  version "0.0.1-alpha.4"
+  resolved "https://registry.yarnpkg.com/@dorgtech/arc.react/-/arc.react-0.0.1-alpha.4.tgz#023cfd0f1cf204a4148117a68e7137974e07c351"
+  integrity sha512-D9goQd6L0D8eW6Jb3YeiZRzL7/EiBV3G1hW8rDr1kS6p9Xgdk6v2SbeklUQse32h4iVxOJ+VUYAjjeMnmPKbdQ==
   dependencies:
     "@daostack/arc.js" "2.0.0-experimental.33"
     apollo-link-retry "^2.2.16"
