@@ -6,7 +6,8 @@ import { Proposals,
   Plugins,
   Plugin,
   DAOData,
-  usePlugin 
+  usePlugin, 
+  EmptyView
 } from "@dorgtech/arc.react";
 import { 
   Divider,
@@ -155,17 +156,23 @@ export function DAOProposals(props: IProps) {
     <>
       <ProposalFilters />
       <Divider />
-      {selectedPlugin ? (
-        <Plugin id={selectedPlugin}>
-          <Proposals filter={currentProposals} from="Plugin">
+      <EmptyView render={() => (
+        <div>
+          No proposals has been created for current plugin
+        </div>
+      )}>
+        {selectedPlugin ? (
+          <Plugin id={selectedPlugin}>
+            <Proposals filter={currentProposals} from="Plugin">
+              <ProposalList totalRep={dao.reputationTotalSupply} />
+            </Proposals>
+          </Plugin>
+        ) : (
+          <Proposals filter={currentProposals} from="DAO">
             <ProposalList totalRep={dao.reputationTotalSupply} />
           </Proposals>
-        </Plugin>
-      ) : (
-        <Proposals filter={currentProposals} from="DAO">
-          <ProposalList totalRep={dao.reputationTotalSupply} />
-        </Proposals>
-      )}
+        )}
+      </EmptyView>
     </>
   );
 }
